@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "concord-media",
+    "slug": "concord-media",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "concord-media"
+}
