@@ -1,12 +1,16 @@
 package main
 
 import (
+	"api/routes"
+	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/gin-contrib/cors"
+	_ "github.com/go-sql-driver/mysql"
 
 	// "rest-api/routes"
 	"github.com/gin-gonic/gin"
@@ -16,7 +20,18 @@ import (
 
 func main() { 
 
+	MysqlUrl := os.Getenv("MYSQL_URL")
 
+	db, err := sql.Open("mysql", MysqlUrl)
+	if err != nil {
+		panic(err)
+	}
+	// See "Important settings" section.
+	db.SetConnMaxLifetime(time.Minute * 3)
+	db.SetMaxOpenConns(10)
+	db.SetMaxIdleConns(10)
+
+	
 	port := os.Getenv("PORT")
 
 	if port == "" {
@@ -33,6 +48,13 @@ func main() {
 			"message": "pong",
 		})
 	})
+
+	router.GET("/user-test", routes.TestUserRoute)
+
+
+
+
+
 //this runs the server and allows it to listen to requests.
 	// router.Run(":" + port) // listen and serve on 0.0.0.0:8080 
 
