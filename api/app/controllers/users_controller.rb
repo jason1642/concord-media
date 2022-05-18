@@ -4,6 +4,6 @@ class UsersController < ApplicationController
     render json: {
       "something": "value"
     }
-  end
+  end 
 end
  
