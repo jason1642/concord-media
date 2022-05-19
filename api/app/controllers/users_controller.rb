@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+  # include Error::ErrorHandler
   skip_before_action :verify_authenticity_token
 
   def index
@@ -10,23 +10,29 @@ class UsersController < ApplicationController
   end 
 
   def getAllUsers
-    
-
-    render json: {
-
+   render json: {
     }
   end
 
   def createUser
-    u = User.new
-    u.username = "anewuser1"
-    u.password = "newpass1"
-    u.bio = "newbio1"
-    u.email = "newemail"
 
-    puts u.username
+    u = User.new
+    u.username = params[:username]
+    u.password = params[:password]
+    u.bio = params[:bio]
+    u.email = params[:email]
+  # begin  
+  # rescue_from ActiveRecord::RecordNotFound => e
+  #   render json: {
+  #     message: "There is an error, please enter a bio value"
+  #   }
+  #   # p "PLEASE ENTER A BIO"
+  #   end
+
+
     u.save
-    render json: u
+    render json: params
+    return params
   end
 end
 
