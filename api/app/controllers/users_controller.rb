@@ -10,8 +10,10 @@ class UsersController < ApplicationController
   end 
 
   def getAllUsers
-   render json: {
-    }
+   allUsers = User.all
+   secondUser = User.where(id: 2)
+   print json: secondUser
+   render json: allUsers
   end
 
   def createUser
